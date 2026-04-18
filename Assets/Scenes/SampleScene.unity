@@ -493,6 +493,7 @@ GameObject:
   - component: {fileID: 2123496906}
   - component: {fileID: 2123496910}
   - component: {fileID: 2123496909}
+  - component: {fileID: 2123496911}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -591,7 +592,7 @@ MonoBehaviour:
     m_Bits: 256
   moveSpeed: 10
   jumpForce: 5
-  groundCheckDistance: 1.25
+  groundCheckDistance: 1.1
   isGrounded: 0
 --- !u!50 &2123496907
 Rigidbody2D:
@@ -684,6 +685,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 20816be349226ee49b98921ee457c2bf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::LookingAt
+--- !u!114 &2123496911
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2123496901}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 755bbd6d49a301a459d8391fc0cd54fe, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::InputReader
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

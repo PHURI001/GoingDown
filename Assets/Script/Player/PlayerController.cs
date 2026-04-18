@@ -5,49 +5,39 @@ using UnityEngine.InputSystem;
 
 [RequireComponent(typeof(CapsuleCollider2D))]
 [RequireComponent(typeof(Rigidbody2D))]
+[RequireComponent(typeof(InputReader))]
 public class PlayerController : MonoBehaviour
 {
     [SerializeField] private LayerMask groundLayer;
 
     private Rigidbody2D rb;
+    private InputReader _inputReader;
+
     private Vector2 movement;
 
     [Header("Player Settings")]
     [SerializeField] private float moveSpeed = 10f;
     [SerializeField] private float jumpForce = 5f;
 
-    [SerializeField] private float groundCheckDistance = 1.25f;
+    [SerializeField] private float groundCheckDistance = 1.1f;
 
     private bool jumpTriggered = false;
     [SerializeField] private bool isGrounded = false;
 
-    private GameInput _input;
-    private GameInput.PlayerActions _player;
-
     private void Awake()
     {
-        _input = new GameInput();
-        _player = _input.Player;
-
         rb = GetComponent<Rigidbody2D>();
-    }
 
-    private void OnEnable()
-    {
-        _input.Enable();
-    }
-
-    private void OnDisable()
-    {
-        _input.Disable();
+        if (_inputReader == null)
+            _inputReader = this.gameObject.GetComponent<InputReader>();
     }
 
     private void Update()
     {
-        Vector2 input = _player.Move.ReadValue<Vector2>();
+        Vector2 input = _inputReader.GetMovement();
         movement = new Vector2(input.x, 0).normalized;
 
-        if (_player.Jump.triggered)
+        if (_inputReader.JumpTriggered())
             jumpTriggered = true;
     }
 
