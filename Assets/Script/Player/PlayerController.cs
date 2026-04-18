@@ -42,11 +42,6 @@ public class PlayerController : MonoBehaviour
         _input.Disable();
     }
 
-    private void Start()
-    {
-        
-    }
-
     private void Update()
     {
         Vector2 input = _player.Move.ReadValue<Vector2>();
