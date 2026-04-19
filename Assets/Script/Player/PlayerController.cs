@@ -29,7 +29,7 @@ public class PlayerController : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
 
         if (_inputReader == null)
-            _inputReader = this.gameObject.GetComponent<InputReader>();
+            _inputReader = GetComponent<InputReader>();
     }
 
     private void Update()

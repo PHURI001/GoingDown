@@ -118,6 +118,15 @@ public partial class @GameInput: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Hook"",
+                    ""type"": ""Button"",
+                    ""id"": ""40fc11f2-b4d8-4cdc-af24-d7db2200d065"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -200,17 +209,6 @@ public partial class @GameInput: IInputActionCollection2, IDisposable
                 },
                 {
                     ""name"": """",
-                    ""id"": ""1d7b37a2-bce8-48c8-9120-9df3e430ae6b"",
-                    ""path"": ""<Mouse>/leftButton"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""Umbrella"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
                     ""id"": ""fce5c718-0613-4f7c-82df-802c208e4089"",
                     ""path"": ""<Mouse>/rightButton"",
                     ""interactions"": """",
@@ -230,6 +228,17 @@ public partial class @GameInput: IInputActionCollection2, IDisposable
                     ""action"": ""Umbrella"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""5e9b344a-55f9-465f-ab8b-6dadac3c488b"",
+                    ""path"": ""<Mouse>/leftButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Hook"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -241,6 +250,7 @@ public partial class @GameInput: IInputActionCollection2, IDisposable
         m_Player_Move = m_Player.FindAction("Move", throwIfNotFound: true);
         m_Player_Jump = m_Player.FindAction("Jump", throwIfNotFound: true);
         m_Player_Umbrella = m_Player.FindAction("Umbrella", throwIfNotFound: true);
+        m_Player_Hook = m_Player.FindAction("Hook", throwIfNotFound: true);
     }
 
     ~@GameInput()
@@ -324,6 +334,7 @@ public partial class @GameInput: IInputActionCollection2, IDisposable
     private readonly InputAction m_Player_Move;
     private readonly InputAction m_Player_Jump;
     private readonly InputAction m_Player_Umbrella;
+    private readonly InputAction m_Player_Hook;
     /// <summary>
     /// Provides access to input actions defined in input action map "Player".
     /// </summary>
@@ -347,6 +358,10 @@ public partial class @GameInput: IInputActionCollection2, IDisposable
         /// Provides access to the underlying input action "Player/Umbrella".
         /// </summary>
         public InputAction @Umbrella => m_Wrapper.m_Player_Umbrella;
+        /// <summary>
+        /// Provides access to the underlying input action "Player/Hook".
+        /// </summary>
+        public InputAction @Hook => m_Wrapper.m_Player_Hook;
         /// <summary>
         /// Provides access to the underlying input action map instance.
         /// </summary>
@@ -382,6 +397,9 @@ public partial class @GameInput: IInputActionCollection2, IDisposable
             @Umbrella.started += instance.OnUmbrella;
             @Umbrella.performed += instance.OnUmbrella;
             @Umbrella.canceled += instance.OnUmbrella;
+            @Hook.started += instance.OnHook;
+            @Hook.performed += instance.OnHook;
+            @Hook.canceled += instance.OnHook;
         }
 
         /// <summary>
@@ -402,6 +420,9 @@ public partial class @GameInput: IInputActionCollection2, IDisposable
             @Umbrella.started -= instance.OnUmbrella;
             @Umbrella.performed -= instance.OnUmbrella;
             @Umbrella.canceled -= instance.OnUmbrella;
+            @Hook.started -= instance.OnHook;
+            @Hook.performed -= instance.OnHook;
+            @Hook.canceled -= instance.OnHook;
         }
 
         /// <summary>
@@ -463,5 +484,12 @@ public partial class @GameInput: IInputActionCollection2, IDisposable
         /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
         void OnUmbrella(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "Hook" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnHook(InputAction.CallbackContext context);
     }
 }

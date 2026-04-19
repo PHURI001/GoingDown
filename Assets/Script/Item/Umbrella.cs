@@ -1,9 +1,11 @@
 using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody2D))]
+[RequireComponent(typeof(InputReader))]
 public class Umbrella : MonoBehaviour
 {
     private Rigidbody2D rb;
+    private InputReader _inputReader;
 
     [SerializeField] private float maxDurability = 100f;
     [SerializeField] private float durability;
@@ -12,26 +14,13 @@ public class Umbrella : MonoBehaviour
     private bool isUsingUmbrella = false;
     private bool isUmbrellaBroken => durability <= 0;
 
-    GameInput _input;
-    GameInput.PlayerActions _player;
-
     private void Awake()
     {
-        _input = new GameInput();
-        _player = _input.Player;
-
 #warning "Don't forget to ask the game designer to be sure."
         durability = maxDurability;
-    }
 
-    private void OnEnable()
-    {
-        _input.Enable();
-    }
-
-    private void OnDisable()
-    {
-        _input.Disable();
+        if (_inputReader == null)
+            _inputReader = GetComponent<InputReader>();
     }
 
     private void Start()
@@ -41,7 +30,7 @@ public class Umbrella : MonoBehaviour
 
     private void Update()
     {
-        if (_player.Umbrella.IsPressed()) 
+        if (_inputReader.UmbrellaIsPressed())
             isUsingUmbrella = true;
         else
             isUsingUmbrella = false;

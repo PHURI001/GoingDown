@@ -32,6 +32,15 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
+                },
+                {
+                    "name": "Hook",
+                    "type": "Button",
+                    "id": "40fc11f2-b4d8-4cdc-af24-d7db2200d065",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -114,17 +123,6 @@
                 },
                 {
                     "name": "",
-                    "id": "1d7b37a2-bce8-48c8-9120-9df3e430ae6b",
-                    "path": "<Mouse>/leftButton",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Umbrella",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
                     "id": "fce5c718-0613-4f7c-82df-802c208e4089",
                     "path": "<Mouse>/rightButton",
                     "interactions": "",
@@ -142,6 +140,17 @@
                     "processors": "",
                     "groups": "",
                     "action": "Umbrella",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "5e9b344a-55f9-465f-ab8b-6dadac3c488b",
+                    "path": "<Mouse>/leftButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Hook",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

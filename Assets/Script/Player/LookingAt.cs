@@ -14,7 +14,7 @@ public class LookingAt : MonoBehaviour
     private void Awake()
     {
         if (_inputReader == null)
-            _inputReader = this.gameObject.GetComponent<InputReader>();
+            _inputReader = GetComponent<InputReader>();
     }
     private void FixedUpdate()
     {

@@ -12,17 +12,17 @@ public class InputReader : MonoBehaviour
         _player = _input.Player;
     }
 
-    private void OnEnable()
-    {
-        _input.Enable();
-    }
+    private void OnEnable() { _input.Enable(); }
+    private void OnDisable() { _input.Disable(); }
 
-    private void OnDisable()
-    {
-        _input.Disable();
-    }
-
+    // Player Actions
     public Vector2 GetMouse() { return Mouse.current.position.ReadValue(); }
     public Vector2 GetMovement() { return _player.Move.ReadValue<Vector2>(); }
     public bool JumpTriggered() { return _player.Jump.triggered; }
+
+    // Item Umbrella
+    public bool UmbrellaIsPressed() { return _player.Umbrella.IsPressed(); }
+
+    // Item Grappling Hook
+    public bool HookIsPressed() { return _player.Hook.IsPressed(); }
 }
