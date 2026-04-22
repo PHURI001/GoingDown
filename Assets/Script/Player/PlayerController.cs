@@ -24,6 +24,9 @@ public class PlayerController : MonoBehaviour
     private bool jumpTriggered = false;
     [SerializeField] private bool isGrounded = false;
 
+    [Header("Environment Settings")]
+    [SerializeField] private float mudDrag = 100f;
+
     private void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -66,5 +69,13 @@ public class PlayerController : MonoBehaviour
         rb.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
 
         //Debug.Log("Jumped!");
+    }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.CompareTag("Mud"))
+            rb.linearDamping = mudDrag;
+        else
+            rb.linearDamping = 0f;
     }
 }
