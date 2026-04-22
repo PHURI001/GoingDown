@@ -78,4 +78,9 @@ public class PlayerController : MonoBehaviour
         else
             rb.linearDamping = 0f;
     }
+
+    public bool IsOnGround()
+    {
+        return isGrounded;
+    }
 }

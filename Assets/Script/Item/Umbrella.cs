@@ -2,10 +2,12 @@ using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody2D))]
 [RequireComponent(typeof(InputReader))]
+[RequireComponent(typeof(PlayerController))]
 public class Umbrella : MonoBehaviour
 {
     private Rigidbody2D rb;
     private InputReader _inputReader;
+    private PlayerController _playerController;
 
     [SerializeField] private float maxDurability = 100f;
     [SerializeField] private float durability;
@@ -26,6 +28,7 @@ public class Umbrella : MonoBehaviour
     private void Start()
     {
         rb = GetComponent<Rigidbody2D>();
+        _playerController = GetComponent<PlayerController>();
     }
 
     private void Update()
@@ -38,7 +41,7 @@ public class Umbrella : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if (!isUmbrellaBroken && isUsingUmbrella && durability > 0)
+        if (!isUmbrellaBroken && isUsingUmbrella && durability > 0 && !_playerController.IsOnGround())
         {
             UsingUmbrella();
         }
@@ -60,5 +63,7 @@ public class Umbrella : MonoBehaviour
         {
             // Handle umbrella breakage (e.g., play sound, show visual effect)
         }
+
+        Debug.Log($"Using umbrella. Durability: {durability}");
     }
 }
