@@ -9,12 +9,23 @@ public class Umbrella : MonoBehaviour
     private InputReader _inputReader;
     private PlayerController _playerController;
 
+    [Header("Umbrella Settings")]
     [SerializeField] private float maxDurability = 100f;
     [SerializeField] private float durability;
     [SerializeField] private float durabilityDecreaseRate = 10f;
 
     private bool isUsingUmbrella = false;
     private bool isUmbrellaBroken => durability <= 0;
+
+    // Sprite
+    [SerializeField] private SpriteRenderer spriteRenderer;
+
+    [SerializeField] private Sprite umbrellaOpenSprite;
+    [SerializeField] private Sprite umbrellaCloseSprite;
+
+    [Header("Player Settings")]
+    [SerializeField] private float normalSpeedMultiplier = 1f;
+    [SerializeField] private float UsingUmbrellaSpeedMultiplier = 0.6f;
 
     private void Awake()
     {
@@ -43,7 +54,14 @@ public class Umbrella : MonoBehaviour
     {
         if (!isUmbrellaBroken && isUsingUmbrella && durability > 0 && !_playerController.IsOnGround())
         {
+            _playerController.SetSpeedMultiplier(UsingUmbrellaSpeedMultiplier);
             UsingUmbrella();
+            UmbellaOpen(true);
+        }
+        else
+        {
+            _playerController.SetSpeedMultiplier(normalSpeedMultiplier);
+            UmbellaOpen(false);
         }
     }
 
@@ -52,18 +70,38 @@ public class Umbrella : MonoBehaviour
         durability = maxDurability;
     }
 
-#warning "Please continue working here."
+    [SerializeField] private float fallSpeedLimit = -2f;
     private void UsingUmbrella()
     {
-        // logic to reduce fall speed, e.g., by applying an upward force or modifying gravity
+        if (rb.linearVelocity.y < fallSpeedLimit)
+        {
+            rb.linearVelocity = new Vector2(rb.linearVelocity.x, fallSpeedLimit);
+        }
 
         durability -= durabilityDecreaseRate * Time.fixedDeltaTime;
 
         if (isUmbrellaBroken)
         {
-            // Handle umbrella breakage (e.g., play sound, show visual effect)
+            isUsingUmbrella = false;
+            Debug.Log("Umbrella Broken!");
         }
 
         Debug.Log($"Using umbrella. Durability: {durability}");
+    }
+
+    private void UmbellaOpen(bool isOpen)
+    {
+        if (isOpen)
+        {
+            spriteRenderer.transform.localPosition = new Vector2(0.5f, 1f);
+            spriteRenderer.flipY = false;
+            spriteRenderer.sprite = umbrellaOpenSprite;
+        }
+        else
+        {
+            spriteRenderer.transform.localPosition = new Vector2(-0.5f, -0.5f);
+            spriteRenderer.flipY = true;
+            spriteRenderer.sprite = umbrellaCloseSprite;
+        }
     }
 }

@@ -37,6 +37,8 @@ public class PlayerController : MonoBehaviour
 
     private void Update()
     {
+        LookAtMouse();
+
         Vector2 input = _inputReader.GetMovement();
         movement = new Vector2(input.x, 0).normalized;
 
@@ -61,7 +63,7 @@ public class PlayerController : MonoBehaviour
 
     private void Move()
     {
-        rb.linearVelocity = new Vector2(movement.x * moveSpeed, rb.linearVelocity.y);
+        rb.linearVelocity = new Vector2(movement.x * SpeedCalculator(), rb.linearVelocity.y);
     }
 
     private void Jump()
@@ -82,5 +84,27 @@ public class PlayerController : MonoBehaviour
     public bool IsOnGround()
     {
         return isGrounded;
+    }
+
+    private float SpeedCalculator() { return moveSpeed * speedMultiplier; }
+
+    private float speedMultiplier = 1f;
+    public void SetSpeedMultiplier(float value)
+    {
+        speedMultiplier = value;
+    }
+
+    private void LookAtMouse()
+    {
+        Vector3 mousePos = Camera.main.ScreenToWorldPoint(_inputReader.GetMouse());
+
+        if (mousePos.x > transform.position.x)
+        {
+            transform.localScale = new Vector3(1, 1, 1); // หันขวา
+        }
+        else
+        {
+            transform.localScale = new Vector3(-1, 1, 1); // หันซ้าย
+        }
     }
 }

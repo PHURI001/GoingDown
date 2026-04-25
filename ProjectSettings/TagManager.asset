@@ -5,7 +5,6 @@ TagManager:
   serializedVersion: 3
   tags:
   - Umbrella
-  - Ground
   - Mud
   layers:
   - Default
