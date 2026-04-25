@@ -29,7 +29,6 @@ public class Umbrella : MonoBehaviour
 
     private void Awake()
     {
-#warning "Don't forget to ask the game designer to be sure."
         durability = maxDurability;
 
         if (_inputReader == null)
