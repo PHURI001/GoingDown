@@ -20,6 +20,8 @@ public class InputReader : MonoBehaviour
     public Vector2 GetMovement() { return _player.Move.ReadValue<Vector2>(); }
     public bool JumpTriggered() { return _player.Jump.triggered; }
 
+    //public bool IsJump() { return _player.Jump.IsPressed() };
+
     // Item Umbrella
     public bool UmbrellaIsPressed() { return _player.Umbrella.IsPressed(); }
 

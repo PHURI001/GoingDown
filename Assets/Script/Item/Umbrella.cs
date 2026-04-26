@@ -43,7 +43,7 @@ public class Umbrella : MonoBehaviour
 
     private void Update()
     {
-        if (_inputReader.UmbrellaIsPressed())
+        if (_inputReader.UmbrellaIsPressed() && !_inputReader.HookIsPressed())
             isUsingUmbrella = true;
         else
             isUsingUmbrella = false;

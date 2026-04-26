@@ -10,19 +10,24 @@ public class PlayerController : MonoBehaviour
 {
     [SerializeField] private LayerMask groundLayer;
 
+    [SerializeField] private Hook hook;
+
     private Rigidbody2D rb;
     private InputReader _inputReader;
 
     private Vector2 movement;
 
     [Header("Player Settings")]
-    [SerializeField] private float moveSpeed = 10f;
+    [SerializeField] private float moveSpeed = 5f;
     [SerializeField] private float jumpForce = 5f;
 
     [SerializeField] private float groundCheckDistance = 1.1f;
 
     private bool jumpTriggered = false;
     [SerializeField] private bool isGrounded = false;
+    //[SerializeField] private bool isMud = false;
+
+    [SerializeField] private SpringJoint2D hookJoint;
 
     [Header("Environment Settings")]
     [SerializeField] private float mudDrag = 100f;
@@ -48,6 +53,9 @@ public class PlayerController : MonoBehaviour
 
     private void FixedUpdate()
     {
+        if (IsHooked()) { MovementWhileHooked(); return; }
+        else { hookJoint.enabled = false; }
+
         Move();
 
         isGrounded = Physics2D.Raycast(rb.position, Vector2.down, groundCheckDistance, groundLayer);
@@ -76,9 +84,15 @@ public class PlayerController : MonoBehaviour
     private void OnCollisionEnter2D(Collision2D collision)
     {
         if (collision.gameObject.CompareTag("Mud"))
+        {
             rb.linearDamping = mudDrag;
+            //isMud = true;
+        }
         else
+        {
             rb.linearDamping = 0f;
+            //isMud = false;
+        }
     }
 
     public bool IsOnGround()
@@ -100,11 +114,63 @@ public class PlayerController : MonoBehaviour
 
         if (mousePos.x > transform.position.x)
         {
-            transform.localScale = new Vector3(1, 1, 1); // หันขวา
+            transform.localScale = new Vector3(1, 1, 1);
         }
         else
         {
-            transform.localScale = new Vector3(-1, 1, 1); // หันซ้าย
+            transform.localScale = new Vector3(-1, 1, 1);
+        }
+    }
+
+    //public bool CanIHook()
+    //{
+    //    bool canHook = transform;
+    //    //if (isGrounded && !isMud)
+    //    //{
+    //    //    canHook = true;
+    //    //}
+    //    return canHook;
+    //}
+
+    public bool IsHooked() { return hook.IsHooked(); }
+
+    [Header("Hook Movement Settings")]
+    [SerializeField] private float moveForce = 10f;
+    [SerializeField] private float maxHorizontalSpeed = 8f;
+
+    [SerializeField] private float distanceAdjustSpeed = 5f;
+    [SerializeField] private float MinHookDistance = -1f;
+    [SerializeField] private float maxHookDistance = 3f;
+    private void MovementWhileHooked()
+    {
+        hookJoint.enabled = true;
+
+        Vector2 input = _inputReader.GetMovement();
+
+        if (Mathf.Abs(input.x) > 0.1f)
+        {
+            rb.AddForce(new Vector2(input.x * moveForce, 0f));
+        }
+
+        float clampedX = Mathf.Clamp(rb.linearVelocity.x, -maxHorizontalSpeed, maxHorizontalSpeed);
+        rb.linearVelocity = new Vector2(clampedX, rb.linearVelocity.y);
+
+        if (Mathf.Abs(input.y) > 0.1f)
+        {
+            float newDistance = hookJoint.distance;
+
+            if (input.y < 0)
+            {
+                newDistance += distanceAdjustSpeed * Time.fixedDeltaTime;
+            }
+            else if (input.y > 0)
+            {
+                newDistance -= distanceAdjustSpeed * Time.fixedDeltaTime;
+            }
+
+            newDistance = Mathf.Clamp(newDistance, MinHookDistance, maxHookDistance);
+
+            hookJoint.distance = newDistance;
         }
     }
 }
