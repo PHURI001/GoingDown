@@ -18642,8 +18642,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9e50ee4b4a04bed4d9c36e43ca6a289e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Falling
-  extraFallForce: 5
-  maxFallSpeed: -10
+  extraFallForce: 30
+  maxFallSpeed: -25
   damageThreshold: -14
   groundLayer:
     serializedVersion: 2

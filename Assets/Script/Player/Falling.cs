@@ -6,8 +6,8 @@ public class Falling : MonoBehaviour
 {
     Rigidbody2D rb;
 
-    public float extraFallForce = 5f;
-    public float maxFallSpeed = -10f;
+    public float extraFallForce = 30f;
+    public float maxFallSpeed = -25f;
     public float damageThreshold = -14f;
     public LayerMask groundLayer;
 
