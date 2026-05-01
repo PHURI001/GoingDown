@@ -8,42 +8,38 @@ public class UIButtonFX : MonoBehaviour, IPointerEnterHandler, IPointerExitHandl
     RectTransform rect;
     Vector3 originalScale;
 
-    [Header("Hover")]
     public float hoverScale = 1.1f;
     public float hoverSpeed = 10f;
 
-    [Header("Click")]
     public float clickScale = 0.9f;
-    public float zoomSpeed = 8f;
+    public float clickSpeed = 12f;
 
-    [Header("Audio")]
     public AudioSource audioSource;
-    public AudioClip hoverSound;
     public AudioClip clickSound;
 
-    bool isHovering = false;
-    bool isClicked = false;
+    public bool IsFinished { get; private set; }
+
+    bool isHovering;
+    bool isClicked;
 
     void Start()
     {
         rect = GetComponent<RectTransform>();
         originalScale = rect.localScale;
+        IsFinished = false;
     }
 
     void Update()
     {
         if (isClicked) return;
 
-        Vector3 targetScale = isHovering ? originalScale * hoverScale : originalScale;
-        rect.localScale = Vector3.Lerp(rect.localScale, targetScale, Time.deltaTime * hoverSpeed);
+        Vector3 target = isHovering ? originalScale * hoverScale : originalScale;
+        rect.localScale = Vector3.Lerp(rect.localScale, target, Time.deltaTime * hoverSpeed);
     }
 
     public void OnPointerEnter(PointerEventData eventData)
     {
         isHovering = true;
-
-        if (audioSource && hoverSound)
-            audioSource.PlayOneShot(hoverSound);
     }
 
     public void OnPointerExit(PointerEventData eventData)
@@ -60,22 +56,32 @@ public class UIButtonFX : MonoBehaviour, IPointerEnterHandler, IPointerExitHandl
     IEnumerator ClickEffect()
     {
         isClicked = true;
+        IsFinished = false;
 
         if (audioSource && clickSound)
             audioSource.PlayOneShot(clickSound);
 
-        Vector3 shrinkTarget = originalScale * clickScale;
+        Vector3 shrink = originalScale * clickScale;
 
-        while (Vector3.Distance(rect.localScale, shrinkTarget) > 0.01f)
+        float t = 0f;
+
+        while (t < 1f)
         {
-            rect.localScale = Vector3.Lerp(rect.localScale, shrinkTarget, Time.deltaTime * zoomSpeed);
+            t += Time.deltaTime * clickSpeed;
+            rect.localScale = Vector3.Lerp(originalScale, shrink, t);
             yield return null;
         }
 
-        while (Vector3.Distance(rect.localScale, Vector3.one * 5f) > 0.05f)
+        t = 0f;
+
+        while (t < 1f)
         {
-            rect.localScale = Vector3.Lerp(rect.localScale, Vector3.one * 5f, Time.deltaTime * zoomSpeed);
+            t += Time.deltaTime * clickSpeed;
+            rect.localScale = Vector3.Lerp(shrink, originalScale, t);
             yield return null;
         }
+
+        IsFinished = true;
+        isClicked = false;
     }
 }
