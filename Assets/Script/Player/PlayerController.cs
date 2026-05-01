@@ -95,6 +95,15 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    private void OnCollisionExit2D(Collision2D collision)
+    {
+        if (collision.gameObject.CompareTag("Mud"))
+        {
+            rb.linearDamping = 0f;
+            //isMud = false;
+        }
+    }
+
     public bool IsOnGround()
     {
         return isGrounded;

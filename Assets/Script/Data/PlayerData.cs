@@ -22,7 +22,6 @@ public class PlayerData : MonoBehaviour
 
     public void UnlockLevel(int levelIndex)
     {
-        levelIndex -= 1;
         if (levelIndex >= 0 && levelIndex < LevelUnlock.Length)
         {
             LevelUnlock[levelIndex] = true;

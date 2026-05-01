@@ -85,7 +85,7 @@ public class Umbrella : MonoBehaviour
             Debug.Log("Umbrella Broken!");
         }
 
-        Debug.Log($"Using umbrella. Durability: {durability}");
+        //Debug.Log($"Using umbrella. Durability: {durability}");
     }
 
     private void UmbellaOpen(bool isOpen)

@@ -37,4 +37,9 @@ public class LevelChoose : MonoBehaviour
             }
         }
     }
+
+    public void BackToLogin()
+    {
+        SceneManager.Instance.LoadScene("Login");
+    }
 }

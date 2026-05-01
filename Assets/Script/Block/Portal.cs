@@ -17,9 +17,15 @@ public class Portal : MonoBehaviour
         }
     }
 
-    public void WonAndWarp()
+    public void WonAndGoMain()
     {
-        PlayerData.Instance.UnlockLevel(PassLevel + 1);
+        PlayerData.Instance.UnlockLevel(PassLevel);
         SceneManager.Instance.LoadScene(LevelSelectScene);
+    }
+
+    public void WonAndNext()
+    {
+        PlayerData.Instance.UnlockLevel(PassLevel);
+        SceneManager.Instance.LoadScene("Level0" + (PassLevel + 1));
     }
 }
