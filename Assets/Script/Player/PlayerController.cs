@@ -71,7 +71,7 @@ public class PlayerController : MonoBehaviour
 
     private void Move()
     {
-        GetComponent<Falling>().enabled = false;
+        GetComponent<Falling>().enabled = true;
         rb.linearVelocity = new Vector2(movement.x * SpeedCalculator(), rb.linearVelocity.y);
     }
 
