@@ -32,6 +32,8 @@ public class PlayerController : MonoBehaviour
     [Header("Environment Settings")]
     [SerializeField] private float mudDrag = 100f;
 
+    public Falling fallingScript;
+
     private void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -71,7 +73,6 @@ public class PlayerController : MonoBehaviour
 
     private void Move()
     {
-        GetComponent<Falling>().enabled = true;
         rb.linearVelocity = new Vector2(movement.x * SpeedCalculator(), rb.linearVelocity.y);
     }
 
@@ -92,6 +93,7 @@ public class PlayerController : MonoBehaviour
         else
         {
             rb.linearDamping = 0f;
+            fallingScript.enabled = true;
             //isMud = false;
         }
     }
@@ -102,6 +104,22 @@ public class PlayerController : MonoBehaviour
         {
             rb.linearDamping = 0f;
             //isMud = false;
+        }
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.gameObject.CompareTag("Unpush"))
+        {
+            fallingScript.enabled = false;
+        }
+    }
+
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        if (collision.gameObject.CompareTag("Unpush"))
+        {
+            fallingScript.enabled = true;
         }
     }
 
@@ -155,7 +173,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float maxHookDistance = 3f;
     private void MovementWhileHooked()
     {
-        GetComponent<Falling>().enabled = false;
+        fallingScript.enabled = false;
 
         hookJoint.enabled = true;
 
