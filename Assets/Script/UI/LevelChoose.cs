@@ -1,12 +1,14 @@
 using System;
 using UnityEngine;
 using UnityEngine.UI;
+using System.Collections;
 
 public class LevelChoose : MonoBehaviour
 {
     PlayerData playerData;
 
     public Button[] levelButtons;
+    public ZoomInAndOut zoom;
 
     private void Start()
     {
@@ -25,7 +27,7 @@ public class LevelChoose : MonoBehaviour
 
                 levelButtons[i].onClick.AddListener(() =>
                 {
-                    SceneManager.Instance.LoadScene("Level0" + (index + 1));
+                    StartCoroutine(LoadLevel("Level0" + (index + 1)));
                 });
             }
             else
@@ -38,8 +40,20 @@ public class LevelChoose : MonoBehaviour
         }
     }
 
+    IEnumerator LoadLevel(string sceneName)
+    {
+        yield return zoom.ExpandFromCenter(0.4f);
+        SceneManager.Instance.LoadScene(sceneName);
+    }
+
     public void BackToLogin()
     {
+        StartCoroutine(Back());
+    }
+
+    IEnumerator Back()
+    {
+        yield return zoom.ExpandFromCenter(0.4f);
         SceneManager.Instance.LoadScene("Login");
     }
 }
