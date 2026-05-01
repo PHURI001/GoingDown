@@ -33,7 +33,7 @@ public class Falling : MonoBehaviour
             rb.linearVelocity = new Vector2(rb.linearVelocity.x, maxFallSpeed);
         }
 
-        Debug.Log("Fall Speed: " + rb.linearVelocity.y.ToString("F2") + " m/s");
+        //Debug.Log("Fall Speed: " + rb.linearVelocity.y.ToString("F2") + " m/s");
     }
 
     void OnCollisionEnter2D(Collision2D collision)
