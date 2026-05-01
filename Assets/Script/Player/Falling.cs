@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.Audio;
 
 [RequireComponent(typeof(Rigidbody2D))]
 public class Falling : MonoBehaviour
@@ -13,6 +14,8 @@ public class Falling : MonoBehaviour
     public Player player;
 
     float lastVelocityY;
+
+    public AudioSource audioSource;
 
     void Start()
     {
@@ -42,6 +45,7 @@ public class Falling : MonoBehaviour
         {
             if (lastVelocityY <= damageThreshold)
             {
+                audioSource.Play();
                 player.TakeDamage();
             }
         }
