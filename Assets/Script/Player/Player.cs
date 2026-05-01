@@ -2,15 +2,20 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    public int Health = 3;
+
+    public void TakeDamage()
     {
-        
+        Debug.Log("Player takes damage!");
+        Health--;
+        if (Health <= 0)
+        {
+            Die();
+        }
     }
 
-    // Update is called once per frame
-    void Update()
+    public void Die()
     {
-        
+        Debug.Log("Player has died.");
     }
 }
