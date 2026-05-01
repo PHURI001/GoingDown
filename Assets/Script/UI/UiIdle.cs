@@ -16,7 +16,7 @@ public class UiIdle : MonoBehaviour
 
     void Update()
     {
-        float y = Mathf.Sin(Time.time * speed) * amplitude;
+        float y = Mathf.Sin(Time.unscaledTime * speed) * amplitude;
         rect.anchoredPosition = startPos + new Vector2(0, y);
     }
 }

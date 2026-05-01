@@ -120,6 +120,8 @@ public class PlayerController : MonoBehaviour
 
     private void LookAtMouse()
     {
+        if (Time.timeScale == 0f) return;
+
         Vector3 mousePos = Camera.main.ScreenToWorldPoint(_inputReader.GetMouse());
 
         if (mousePos.x > transform.position.x)

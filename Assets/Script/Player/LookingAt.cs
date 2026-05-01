@@ -18,6 +18,7 @@ public class LookingAt : MonoBehaviour
     }
     private void FixedUpdate()
     {
+        if (Time.timeScale == 0f) return;
         mousePosition = Camera.main.ScreenToWorldPoint(_inputReader.GetMouse());
         Vector2 direction = (mousePosition - (Vector2)transform.position).normalized;
         angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
