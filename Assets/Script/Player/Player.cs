@@ -10,6 +10,8 @@ public class Player : MonoBehaviour
     public GameObject GameOver;
     public TMP_Text ScoreText;
 
+    public AudioSource StarAudio;
+
     public void TakeDamage()
     {
         //Debug.Log("Player takes damage!");
@@ -41,6 +43,7 @@ public class Player : MonoBehaviour
         if (collision.CompareTag("Star"))
         {
             Score++;
+            StarAudio.Play();
             //Debug.Log("Score: " + Score);
             Destroy(collision.gameObject);
         }
