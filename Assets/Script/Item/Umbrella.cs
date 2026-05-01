@@ -103,4 +103,6 @@ public class Umbrella : MonoBehaviour
             spriteRenderer.sprite = umbrellaCloseSprite;
         }
     }
+
+    public float GetDurability() { return durability; }
 }
