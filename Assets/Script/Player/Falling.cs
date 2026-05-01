@@ -41,7 +41,7 @@ public class Falling : MonoBehaviour
 
     void OnCollisionEnter2D(Collision2D collision)
     {
-        if (((1 << collision.gameObject.layer) & groundLayer) != 0)
+        if (((1 << collision.gameObject.layer) & groundLayer) != 0 || collision.gameObject.CompareTag("Mud"))
         {
             if (lastVelocityY <= damageThreshold)
             {
