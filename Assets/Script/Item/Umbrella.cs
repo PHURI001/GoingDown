@@ -92,13 +92,13 @@ public class Umbrella : MonoBehaviour
     {
         if (isOpen)
         {
-            spriteRenderer.transform.localPosition = new Vector2(0.5f, 1f);
+            spriteRenderer.transform.localPosition = new Vector2(0.25f, 0.4f);
             spriteRenderer.flipY = false;
             spriteRenderer.sprite = umbrellaOpenSprite;
         }
         else
         {
-            spriteRenderer.transform.localPosition = new Vector2(-0.5f, -0.5f);
+            spriteRenderer.transform.localPosition = new Vector2(-0.25f, -0.4f);
             spriteRenderer.flipY = true;
             spriteRenderer.sprite = umbrellaCloseSprite;
         }

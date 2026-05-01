@@ -71,6 +71,7 @@ public class PlayerController : MonoBehaviour
 
     private void Move()
     {
+        GetComponent<Falling>().enabled = false;
         rb.linearVelocity = new Vector2(movement.x * SpeedCalculator(), rb.linearVelocity.y);
     }
 
@@ -152,6 +153,8 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float maxHookDistance = 3f;
     private void MovementWhileHooked()
     {
+        GetComponent<Falling>().enabled = false;
+
         hookJoint.enabled = true;
 
         Vector2 input = _inputReader.GetMovement();
