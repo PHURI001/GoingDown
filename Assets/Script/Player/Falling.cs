@@ -31,7 +31,7 @@ public class Falling : MonoBehaviour
             rb.AddForce(Vector2.down * extraFallForce, ForceMode2D.Force); //Gravity F=ma ,Falling
         }
 
-        if (rb.linearVelocity.y < maxFallSpeed)
+        if (rb.linearVelocity.y < maxFallSpeed) //simmu air resistance
         {
             rb.linearVelocity = new Vector2(rb.linearVelocity.x, maxFallSpeed);
         }
