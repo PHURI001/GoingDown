@@ -26,7 +26,6 @@ public class Falling : MonoBehaviour
     {
         lastVelocityY = rb.linearVelocity.y;
 
-        // ถ้ากำลังตก
         if (rb.linearVelocity.y < 0)
         {
             float mass = rb.mass;
