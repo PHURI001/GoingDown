@@ -28,7 +28,7 @@ public class Falling : MonoBehaviour
 
         if (rb.linearVelocity.y < 0)
         {
-            rb.AddForce(Vector2.down * extraFallForce, ForceMode2D.Force);
+            rb.AddForce(Vector2.down * extraFallForce, ForceMode2D.Force); //Gravity F=ma ,Falling
         }
 
         if (rb.linearVelocity.y < maxFallSpeed)
@@ -36,7 +36,7 @@ public class Falling : MonoBehaviour
             rb.linearVelocity = new Vector2(rb.linearVelocity.x, maxFallSpeed);
         }
 
-        //Debug.Log("Fall Speed: " + rb.linearVelocity.y.ToString("F2") + " m/s");
+        //Debug.Log("rb.linearVelocity.y.ToString("F2"));
     }
 
     void OnCollisionEnter2D(Collision2D collision)
